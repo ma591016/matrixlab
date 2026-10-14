@@ -7,7 +7,10 @@
   <meta name="theme-color" content="#0b1220">
   <title>MatrixLab — From Mathematics to Business Decisions</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guide.css"> <!-- v1.1: Study Guide styles -->
   <script src="script.js" defer></script>
+  <script src="content.js" defer></script> <!-- v1.1: lesson text -->
+  <script src="guide.js" defer></script>   <!-- v1.1: Study Guide engine -->
 </head>
 <body>
   <div class="app-shell">
@@ -22,10 +25,11 @@
         <button data-screen="geometry" class="nav-item"><span class="nav-number">02</span><span><b>Geometry Explorer</b><small>See quadratic forms</small></span></button>
         <button data-screen="business" class="nav-item"><span class="nav-number">03</span><span><b>Business Simulator</b><small>Optimize a two-product firm</small></span></button>
         <button data-screen="connections" class="nav-item"><span class="nav-number">04</span><span><b>Connect the Ideas</b><small>What does it all mean?</small></span></button>
+        <button data-screen="guide" class="nav-item"><span class="nav-number">05</span><span><b>Study Guide</b><small>Learn it step by step</small></span></button>
       </nav>
       <div class="side-bottom">
         <div class="course-note"><span class="glow-dot"></span> Built around your professor's three presentation themes</div>
-        <div class="version">Interactive teaching prototype · v1.0</div>
+        <div class="version">Interactive teaching prototype · v1.1</div>
       </div>
     </aside>
     <div class="workspace">
@@ -79,6 +83,12 @@
         <section id="screen-connections" class="screen" aria-labelledby="heading-connections"><div class="eyebrow"><span class="eyebrow-line"></span>BRING THE THREE PRESENTATIONS TOGETHER</div><div class="hero-row"><div><h1 id="heading-connections">One framework. <em>Three perspectives.</em></h1><p class="lead">Use this concept map to explain how calculations become geometry and then become economic decisions.</p></div><span class="hero-glyph" aria-hidden="true">A → π</span></div><div class="concept-timeline"><div class="concept-step"><span class="step-marker">01</span><div><h2>Matrix fundamentals</h2><p>You learn to manipulate a matrix and recover its special directions (eigenvectors), scaling factors (eigenvalues), inverse, and factorizations.</p><button data-jump="matrix" class="pill-btn">Explore matrix A →</button></div></div><div class="timeline-connector"></div><div class="concept-step"><span class="step-marker">02</span><div><h2>Quadratic geometry</h2><p>The exact same A defines q(x) = xᵀAx. The eigenvectors set the principal axes, and eigenvalues control curvature and level-set shapes.</p><button data-jump="geometry" class="pill-btn">See the level sets →</button></div></div><div class="timeline-connector"></div><div class="concept-step"><span class="step-marker">03</span><div><h2>Business optimization</h2><p>Two-product inverse demand and linear cost produce π(q) = (α − c)ᵀq − qᵀBq − F. The matrix B describes demand curvature, and capacity restrictions determine what output is feasible.</p><button data-jump="business" class="pill-btn">Optimize the business →</button></div></div></div>
           <div class="panel explanation-panel"><span class="section-tag">CLASSROOM CHECKLIST</span><h2>Everything your professor asked for</h2><div class="checklist-grid"><div><h3>Presentation 1</h3><ul><li>✓ Vector addition, subtraction, scaling</li><li>✓ Matrix multiplication</li><li>✓ Eigenvalues & eigenvectors of [[1,1],[1,2]]</li><li>✓ Spectral decomposition</li><li>✓ Cholesky decomposition</li><li>✓ Inverse of the specified matrix</li></ul></div><div><h3>Presentation 2</h3><ul><li>✓ Two-output firm</li><li>✓ Linear technology & total cost</li><li>✓ Shared-input production interaction</li><li>✓ Substitute products and linear demand</li><li>✓ Quadratic-form profit objective</li></ul></div><div><h3>Presentation 3</h3><ul><li>✓ Bivariate quadratic form</li><li>✓ Level sets, with 2D & 3D visuals</li><li>✓ Effects of changing matrix A</li><li>✓ Definiteness, eigenvalues & geometry</li></ul></div></div></div>
           <div class="panel reference-panel"><span class="section-tag">YOUR UPLOADED TEXTBOOK</span><h2>Read alongside the website</h2><p>Jörg Liesen and Volker Mehrmann, <i>Linear Algebra</i>, 2nd ed. Suggested sections: <b>4.1</b> for matrix operations, <b>8.2</b> for eigenvalues and eigenvectors, <b>14.2</b> for diagonalization, and <b>18.3</b> for quadratic forms, principal axes, positive definiteness and Cholesky decomposition. For the economic model, also use an economics/optimization reference: Section 1.3 of this book covers linear production planning, not this exact quadratic-profit example.</p></div>
+        </section>
+        <!-- v1.1: Study Guide. guide.js fills #guide-root from content.js -->
+        <section id="screen-guide" class="screen" aria-labelledby="heading-guide">
+          <div class="eyebrow"><span class="eyebrow-line"></span> STUDY GUIDE · ALL PRESENTATIONS</div>
+          <div class="hero-row"><div><h1 id="heading-guide">Understand it, <em>then</em> explore it.</h1><p class="lead">Lessons for all three presentations. Each one builds intuition, works an example by hand, states the rule, sends you into the lab, and shows why it matters.</p></div><span class="hero-glyph" aria-hidden="true">λ ?</span></div>
+          <div id="guide-root"></div>
         </section>
       </main>
       <footer class="footer"><span>MatrixLab · Made for learning, not just calculating</span><span>All numerical work runs locally in your browser</span></footer>

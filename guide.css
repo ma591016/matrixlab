@@ -1,0 +1,113 @@
+/* =====================================================================
+   guide.css — styles for the Study Guide (screen 05) only.
+   Every class starts with "g-" so nothing here can change screens 01–04.
+   Colors are mixed from "currentColor" (the page's own text color), so
+   the guide automatically fits whatever theme style.css uses.
+   ===================================================================== */
+
+#screen-guide {
+  --g-teal: #14b8a6;
+  --g-orange: #f97316;
+  --g-violet: #8b5cf6;
+  --g-line: color-mix(in srgb, currentColor 16%, transparent);   /* soft borders */
+  --g-tint: color-mix(in srgb, currentColor 5%, transparent);    /* soft backgrounds */
+}
+
+/* ---------- toolbar + depth toggle ---------- */
+.g-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0 18px; }
+.g-how { max-width: 640px; line-height: 1.5; }
+.g-depth { display: inline-flex; border: 1px solid var(--g-line); border-radius: 999px; padding: 3px; gap: 2px; }
+.g-depth button { font: inherit; font-size: 13px; color: inherit; background: transparent; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; opacity: .75; }
+.g-depth button.on { background: var(--g-teal); color: #fff; opacity: 1; font-weight: 600; }
+
+/* ---------- overview: module cards ---------- */
+.g-module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.g-module h2 { margin: 6px 0 4px; }
+.g-progress { height: 6px; border-radius: 99px; background: var(--g-line); overflow: hidden; margin-top: 12px; }
+.g-progress span { display: block; height: 100%; background: var(--g-teal); }
+.g-concepts { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.g-concept { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--g-line); font: inherit; font-size: 14px; color: inherit; text-align: left; background: transparent; }
+.g-concept.ready { cursor: pointer; border-color: color-mix(in srgb, var(--g-teal) 55%, transparent); background: color-mix(in srgb, var(--g-teal) 8%, transparent); }
+.g-concept.ready:hover { background: color-mix(in srgb, var(--g-teal) 16%, transparent); }
+.g-concept.planned { opacity: .55; }
+.g-concept small { white-space: nowrap; opacity: .8; }
+
+/* ---------- lesson page ---------- */
+.g-title h2 { margin: 6px 0 4px; font-size: clamp(22px, 3vw, 30px); }
+.g-title { margin-bottom: 18px; }
+.g-layer { margin-bottom: 16px; }
+.g-layer-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.g-layer-head h3 { margin: 0; }
+.g-layer-head p { margin: 2px 0 0; }
+.g-layer-num { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: #fff; background: var(--g-teal); }
+.g-body { line-height: 1.65; }
+.g-body p { margin: 0 0 10px; }
+.g-body h4 { margin: 14px 0 6px; }
+.g-m { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .95em; padding: 1px 5px; border-radius: 5px; background: var(--g-tint); white-space: nowrap; }
+.g-math-block { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 15px; padding: 10px 14px; margin: 8px 0 4px; border-radius: 10px; border-left: 3px solid var(--g-violet); background: var(--g-tint); overflow-x: auto; white-space: pre-wrap; }
+.g-analogy { padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--g-orange) 9%, transparent); border-left: 3px solid var(--g-orange); }
+
+/* worked-example steps */
+.g-steps { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 12px; }
+.g-step { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--g-line); }
+.g-step h4 { margin: 2px 0 6px; }
+.g-step p { margin: 0; }
+.g-step-num { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-weight: 700; border: 1px solid var(--g-line); }
+.g-conds { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* lab buttons */
+.g-lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.g-lab { text-align: left; font: inherit; color: inherit; background: transparent; border: 1px solid color-mix(in srgb, var(--g-violet) 50%, transparent); border-radius: 12px; padding: 12px 14px; cursor: pointer; display: grid; gap: 4px; }
+.g-lab:hover { background: color-mix(in srgb, var(--g-violet) 10%, transparent); }
+.g-lab small { opacity: .75; line-height: 1.4; }
+.g-lab b::after { content: "  →"; }
+
+/* business cards */
+.g-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.g-card { border: 1px solid var(--g-line); border-radius: 12px; padding: 12px 14px; }
+.g-card h4 { margin: 0 0 6px; }
+.g-card p { margin: 0; font-size: 14px; }
+
+/* mistakes */
+.g-mistake { border: 1px solid var(--g-line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+.g-mistake p { margin: 0; }
+.g-wrong { color: color-mix(in srgb, #e11d48 80%, currentColor); }
+.g-right { margin-top: 4px !important; }
+
+/* quiz */
+.g-q { border-top: 1px solid var(--g-line); padding: 12px 0; }
+.g-opts { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
+.g-opt { font: inherit; font-size: 14px; color: inherit; background: transparent; border: 1px solid var(--g-line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.g-opt:hover { background: var(--g-tint); }
+.g-opt.right { border-color: var(--g-teal); background: color-mix(in srgb, var(--g-teal) 18%, transparent); }
+.g-opt.wrong { border-color: #e11d48; background: color-mix(in srgb, #e11d48 14%, transparent); }
+.g-feedback { min-height: 1.2em; margin: 4px 0 0; font-size: 14px; }
+
+/* references */
+.g-refs { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 10px; }
+.g-refs li { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: start; }
+.g-refs a { color: inherit; font-weight: 600; text-decoration-color: var(--g-teal); text-underline-offset: 3px; }
+.g-refs p { margin: 2px 0 0; }
+.g-kind { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--g-line); text-align: center; }
+
+/* ---------- arrow-test widget ---------- */
+.g-widget { margin-bottom: 16px; }
+.g-widget-head p { margin: 6px 0 12px; }
+.g-arrow { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr); gap: 16px; align-items: start; }
+.g-canvas { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--g-line); background: var(--g-tint); }
+.g-range { display: grid; gap: 6px; font-size: 14px; }
+.g-range input { width: 100%; accent-color: var(--g-teal); }
+.g-readout { margin: 12px 0; display: grid; gap: 4px; font-size: 14px; }
+.g-readout div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--g-line); padding: 3px 0; }
+.g-readout b { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 600; }
+.g-verdict { margin: 8px 0 0; padding: 8px 10px; border-radius: 8px; background: var(--g-tint); font-size: 14px; }
+.g-verdict.yes { background: color-mix(in srgb, var(--g-teal) 20%, transparent); font-weight: 600; }
+.g-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+
+/* ---------- phones ---------- */
+@media (max-width: 760px) {
+  .g-arrow { grid-template-columns: 1fr; }
+  .g-refs li { grid-template-columns: 1fr; gap: 4px; }
+  .g-kind { justify-self: start; }
+  .g-toolbar { flex-direction: column; align-items: flex-start; }
+}
