@@ -50,6 +50,9 @@
     try { localStorage.setItem("matrixlab-depth", state.depth); } catch (e) { /* ignore */ }
   }
 
+  // "PRESENTATION 01" for numbered modules, "ALL PRESENTATIONS" for the capstone (presentation: null).
+  function presLabel(m) { return m.presentation ? "PRESENTATION 0" + m.presentation : "ALL PRESENTATIONS"; }
+
   function findModule(id) { return CONTENT.modules.filter(function (m) { return m.id === id; })[0]; }
   function findConcept(mod, id) { return mod.concepts.filter(function (c) { return c.id === id; })[0]; }
 
@@ -139,7 +142,7 @@
       }).join("");
       return (
         '<article class="panel g-module">' +
-          '<span class="section-tag">PRESENTATION 0' + m.presentation + "</span>" +
+          '<span class="section-tag">' + presLabel(m) + "</span>" +
           "<h2>" + m.title + "</h2>" +
           '<p class="muted small">' + m.tagline + "</p>" +
           '<div class="g-progress"><span style="width:' + Math.round(100 * ready / m.concepts.length) + '%"></span></div>' +
@@ -166,7 +169,7 @@
     var html = "";
     // Top bar: back button + depth toggle
     html += '<div class="g-toolbar"><button type="button" class="text-btn" data-back>← All lessons</button>' + depthToggleHTML() + "</div>";
-    html += '<div class="g-title"><span class="section-tag">PRESENTATION 0' + mod.presentation + " · " + mod.title.toUpperCase() + "</span>" +
+    html += '<div class="g-title"><span class="section-tag">' + presLabel(mod) + " · " + mod.title.toUpperCase() + "</span>" +
             "<h2>" + c.title + "</h2><p class=\"muted\">" + c.summary + "</p></div>";
 
     // Layer 1: Intuition
