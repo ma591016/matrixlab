@@ -4,7 +4,7 @@ An interactive, beginner-friendly website that connects linear algebra, geometri
 
 ## What is included?
 
-### Presentation 1 — Matrix fundamentals
+### 1 - Matrix fundamentals
 
 - Add, subtract and scale 2D vectors.
 - Multiply a `2 × 2` matrix by another `2 × 2` matrix.
@@ -14,14 +14,14 @@ An interactive, beginner-friendly website that connects linear algebra, geometri
 - Find the Cholesky decomposition `A = L Lᵀ` when `A` is positive definite, and verify it.
 - Explore the professor's **exact matrix** by default: `A = [[1,1],[1,2]]`.
 
-### Presentation 3 — Quadratic forms and geometry
+### 3 — Quadratic forms and geometry
 
 - Use the *same* matrix `A` to calculate `q(x,y) = a x² + 2bxy + d y²`.
 - Show 2D level sets (contours), a rotatable 3D surface, and eigenvector principal axes.
 - Compare positive-definite, negative-definite, indefinite, and semidefinite matrices.
 - Explore presets and change coefficients interactively.
 
-### Presentation 2 — Two-product firm
+### 2 — Two-product firm
 
 - Two substitute products with linear inverse demands `P₁ = α₁ − β₁q₁ − γq₂`, `P₂ = α₂ − γq₁ − β₂q₂`.
 - Linear input technology `z = Tq`, input prices `w`, and **linear total cost** `C(q) = F + wᵀTq`.
