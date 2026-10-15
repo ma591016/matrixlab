@@ -1,0 +1,41 @@
+/* =====================================================================
+   lab.css (v2.1) — styles for the new pieces in tabs 01–03 only:
+   the graph view tabs and step buttons (tab 01) and the
+   "what we have / how it is derived" panels (tabs 02 and 03).
+   New class names only, so nothing existing changes.
+   ===================================================================== */
+
+/* ---- tab 01: which operation the graph shows ---- */
+.view-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.view-tabs button, .view-stepper button {
+  font: inherit; font-size: 13px; color: inherit; cursor: pointer;
+  background: transparent; border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 999px; padding: 6px 12px;
+}
+.view-tabs button:hover, .view-stepper button:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+.view-tabs button.on { background: #14b8a6; border-color: #14b8a6; color: #fff; font-weight: 600; }
+.view-stepper { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 10px; padding: 8px 10px; border-radius: 12px; background: color-mix(in srgb, currentColor 5%, transparent); }
+.view-stepper[hidden] { display: none; }
+.view-stepper button.on { background: #f97316; border-color: #f97316; color: #fff; font-weight: 600; }
+.view-stepper button.play { border-color: #8b5cf6; }
+.view-stepper button.swap { border-color: #ec4899; }
+#vector-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+/* ---- tabs 02 and 03: explanation panels ---- */
+.dv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-top: 10px; }
+.dv-card { border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 12px; padding: 12px 14px; }
+.dv-card h3 { margin: 0 0 6px; font-size: 16px; }
+.dv-card p { margin: 0 0 8px; line-height: 1.55; }
+.dv-math { margin: 0; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.5;
+  padding: 10px 12px; border-radius: 10px; border-left: 3px solid #8b5cf6; background: color-mix(in srgb, currentColor 6%, transparent); white-space: pre-wrap; }
+.dv-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dv-table td { padding: 7px 8px; border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); vertical-align: top; line-height: 1.45; }
+.dv-sym { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; white-space: nowrap; color: #5eead4; }
+.dv-val { font-family: ui-monospace, Menlo, Consolas, monospace; white-space: nowrap; text-align: right; opacity: .9; }
+#firm-glossary { margin-top: 8px; overflow-x: auto; }
+#firm-model .mathline { white-space: pre-wrap; }
+@media (max-width: 700px) { .dv-val { white-space: normal; text-align: left; } }
+.dv-grid .dv-card:first-child { grid-column: 1 / -1; }
+.dv-math { white-space: pre; overflow-x: auto; }
+.dv-grid { grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); }
+@media (max-width: 700px) { .dv-grid { grid-template-columns: 1fr; } }

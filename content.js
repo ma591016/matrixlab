@@ -110,7 +110,7 @@ window.MATRIXLAB_CONTENT = {
               "<p>Multiplication is associative and distributes over addition, but is <b>not commutative</b> in general: AM ≠ MA.</p>"
           },
           example: {
-            intro: "A = [[1, 1], [1, 2]] and the site's second matrix [[2, 0], [1, 2]]. The website labels it B; here we call it M so it isn't confused with the firm's demand matrix B in Theme 2.",
+            intro: "A = [[1, 1], [1, 2]] and a second matrix M = [[2, 0], [1, 2]] (card 01 on the website). We call it M so it isn't confused with the firm's demand matrix B in Theme 2.",
             steps: [
               { title: "Top-left cell of A·M", body: "Row 1 of A = (1, 1). Column 1 of M = (2, 1). Multiply matching entries and add.", math: "1·2 + 1·1 = 3" },
               { title: "Top-right cell", body: "Row 1 of A with column 2 of M = (0, 2).", math: "1·0 + 1·2 = 2" },
