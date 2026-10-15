@@ -53,3 +53,22 @@
 .dv-cat tr.dv-on td { background: color-mix(in srgb, #14b8a6 18%, transparent); }
 .dv-cat .dv-sym { color: inherit; }
 @media (max-width: 700px) { .preset-label { min-width: 100%; } .dv-cat { font-size: 12px; } }
+
+/* v2.3: tab 01 example matrices and the symmetric toggle */
+.a-presets { margin: 6px 0 10px; }
+.sym-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.sym-toggle input { width: auto; margin: 0; }
+
+/* v2.3: tab 03 "build your own functions" */
+.mode-switch { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.mode-switch button { font: inherit; font-size: 13px; color: inherit; cursor: pointer; background: transparent; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 999px; padding: 6px 12px; }
+.mode-switch button.on { background: #14b8a6; border-color: #14b8a6; color: #fff; font-weight: 600; }
+#custom-panel { margin-bottom: 12px; }
+#custom-panel code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+.fx-row { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); align-items: center; gap: 8px; margin: 6px 0; }
+.fx-row span { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; white-space: nowrap; }
+.fx-row input { min-width: 0; width: 100%; box-sizing: border-box; font: 14px ui-monospace, Menlo, Consolas, monospace; padding: 7px 9px; border-radius: 8px; border: 1px solid color-mix(in srgb, currentColor 25%, transparent); background: color-mix(in srgb, currentColor 5%, transparent); color: inherit; }
+.fx-row input.fx-bad { border-color: #f97316; box-shadow: 0 0 0 2px rgba(249,115,22,.25); }
+.fx-presets { margin-top: 8px; }
+.fx-hide { display: none !important; }
+@media (max-width: 700px) { .fx-row { grid-template-columns: 1fr; } }

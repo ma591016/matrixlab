@@ -126,9 +126,9 @@ window.MATRIXLAB_CASES = {
         "Every First Class seat takes floor space that could hold more economy seats. Delta flies A321neos with 20 First seats and also " +
         "a version with 44. Starting from the 194-seat layout, how should the cabin change as demand for premium travel grows?",
       facts: [
-        { label: "A321neo layout (194 seats)", value: "20 First, 42 Comfort, 132 Main", note: "Delta's standard domestic configuration", source: "Delta News Hub media kit", url: "https://news.delta.com/mediakit/airbus-a321neo" },
+        { label: "A321neo layout (194 seats)", value: "20 First + 174 economy", note: "Delta's media kit splits economy as 42 Comfort + 132 Main; the delta.com seat map shows 60 Comfort + 114 Main. Both give 174 economy seats, which is all the model uses.", source: "Delta News Hub media kit · Delta.com", url: "https://news.delta.com/mediakit/airbus-a321neo" },
         { label: "Seat pitch", value: "First 37 in · Comfort 33–34 in · Main 31 in", note: "Seat width: First 21 in, Comfort and Main 18 in", source: "Delta.com aircraft page", url: "https://www.delta.com/us/en/aircraft/airbus/a321-neo" },
-        { label: "Premium-heavy version", value: "164 seats with 44 First", note: "Same aircraft type, different cabin split", source: "Delta.com aircraft page", url: "https://www.delta.com/us/en/aircraft/airbus/a321-neo" }
+        { label: "Premium-heavy version", value: "164 seats: 44 First, 54 Comfort, 66 Main", note: "Same aircraft type; First pitch 38 in on this version", source: "Delta.com aircraft page", url: "https://www.delta.com/us/en/aircraft/airbus/a321-neo" }
       ],
       model: {
         q0: [174, 20], p0: [230, 620],
@@ -147,7 +147,7 @@ window.MATRIXLAB_CASES = {
         perResource: { dec: 2, pre: "$", suf: " per inch" },
         assumptionNotes: [
           "Cabin length per seat = pitch ÷ seats per row (6 across in economy, 4 in First): 31/6 and 34/6 in for economy (average 5.29 in), 37/4 = 9.25 in for First.",
-          "Total seat length 1,105 in = 22 Main rows × 31 + 7 Comfort rows × 34 + 5 First rows × 37.",
+          "Total seat length 1,105 in = 22 Main rows × 31 + 7 Comfort rows × 34 + 5 First rows × 37 (the media-kit split; the delta.com split gives 1,114 in, a 1% difference).",
           "Average one-way fares of $230 (economy) and $620 (First) are illustrative. Unit costs are backed out by assuming today's layout is optimal."
         ]
       },
@@ -170,7 +170,7 @@ window.MATRIXLAB_CASES = {
       takeaways: [
         "<b>Today's layout sits exactly on the edge.</b> 174 economy and 20 First seats use the full 1,105 inches. In the model the cabin is just full, so space has no shadow value yet.",
         "<b>Premium boom: trade rows for First.</b> With First valued 15% more, the model goes to about 24 First and 167 economy seats, and an extra inch of cabin becomes worth about $1.98 per flight. At +30%: about 28 First and 160 economy, and the inch is worth about $3.97. That's the same direction as Delta's 44-First version of the plane.",
-        "<b>Each First seat costs about 1.75 economy seats</b> (9.25 ÷ 5.29 in). So First only wins space if it earns 1.75× the margin per seat. The model compares margin <i>per inch</i>: about $28 per inch for economy vs about $37 for First at today's fares.",
+        "<b>Each First seat costs about 1.75 economy seats</b> (9.25 ÷ 5.29 in). So First only wins space if it earns 1.75× the margin per seat. At today's fares the <i>average</i> margin is about $28 per inch for economy and $37 for First, but what decides the layout is the margin of the <i>last</i> seat added: at the best layout those are equal (the shadow price).",
         "<b>In a slump, space stops mattering.</b> With economy demand down 10%, the model flies about 151 economy seats and leaves space unused. The constraint stops binding and its shadow price is zero."
       ],
       limits: [

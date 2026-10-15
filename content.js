@@ -850,7 +850,7 @@ window.MATRIXLAB_CONTENT = {
             ]
           },
           lab: [
-            { label: "Default market", note: "Business Simulator at the default assumptions.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } },
+            { label: "Plenty of input (s₁ = 20)", note: "Business Simulator with input 1 at 20, so no limit binds.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } },
             { label: "Independent products (γ = 0)", note: "No cross effect. Each product is optimized on its own.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } },
             { label: "Strong substitutes (γ = 0.7)", note: "The unconstrained formula gives a negative q₂, so the best plan is a corner: make about 11.7 of product 1 and none of product 2. Product 2 would only cannibalize product 1.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.7, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } }
           ],
@@ -1009,14 +1009,14 @@ window.MATRIXLAB_CONTENT = {
               "<p>Constrained (q ≥ 0, Tq ≤ s): the KKT conditions are (α − c) − 2Bq = Tᵀμ, μ ≥ 0, μ ⊙ (s − Tq) = 0. Each multiplier μᵢ is the marginal profit of one more unit of capacity sᵢ. Because π is concave and the constraints linear, KKT points are global optima.</p>"
           },
           example: {
-            intro: "Defaults: α − c = (18.65, 15.4), B = [[0.8, 0.25], [0.25, 0.9]], T = [[1, 0.65], [0.45, 1.1]], s = (20, 21). Results are rounded.",
+            intro: "Start with plenty of input: α − c = (18.65, 15.4), B = [[0.8, 0.25], [0.25, 0.9]], T = [[1, 0.65], [0.45, 1.1]], s = (20, 21). (The site's default is s₁ = 10, the scarce case below.) Results are rounded.",
             steps: [
               { title: "First-order conditions", body: "Set both slopes to zero.", math: "18.65 − 1.6q₁ − 0.5q₂ = 0\n15.4 − 0.5q₁ − 1.8q₂ = 0" },
               { title: "Solve with B⁻¹", body: { simple: "det B = 0.6575, so B⁻¹ = (1/0.6575)·[[0.9, −0.25], [−0.25, 0.8]]. Then q* = ½·B⁻¹(α − c).", rigorous: "q* = ½B⁻¹(α − c); equivalently solve the 2×2 system 2Bq = α − c." }, math: "q* ≈ (9.84, 5.82)" },
               { title: "Check capacity", body: "Inputs needed at q*: both below capacity, so neither constraint binds. The unconstrained top is the answer.", math: "T·q* ≈ (13.62, 10.83) ≤ (20, 21) ✓     π* ≈ 124.56" },
               { title: "Now make input 1 scarce: s₁ = 10", body: "q* would need 13.62 units of input 1. Not allowed, so the optimum moves onto the line q₁ + 0.65q₂ = 10.", math: "13.62 > 10  ✗  → constraint binds" },
               { title: "Best point on the fence", body: { simple: "Climb along the capacity line until profit stops rising there. At that point the profit slope points straight out through the fence.", rigorous: "Solve (α − c) − 2Bq = μ·t₁ with t₁ = (1, 0.65), t₁·q = 10." }, math: "q ≈ (6.91, 4.75)     π ≈ 115.12     input 2 used ≈ 8.34 ≤ 21" },
-              { title: "Shadow price", body: "The multiplier μ₁ says one more unit of input 1 adds about this much profit. If input 1 can be rented for less than that, it's worth buying.", math: "μ₁ ≈ 5.22 per unit of input 1     (μ₂ = 0: input 2 is not scarce)" }
+              { title: "Shadow price", body: "The multiplier μ₁ says one more unit of input 1 adds about this much profit. If input 1 can be rented for less than that, it's worth buying.", math: "μ₁ = 5.216 per unit of input 1 (exact KKT)     (μ₂ = 0: input 2 is not scarce)" }
             ]
           },
           formula: {
@@ -1030,7 +1030,7 @@ window.MATRIXLAB_CONTENT = {
             ]
           },
           lab: [
-            { label: "Default optimum (nothing binds)", note: "Expect about q* = (9.84, 5.82) and profit ≈ 124.6.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9, "firm-w1": 2, "firm-w2": 3, "firm-fixed": 12, "firm-t11": 1, "firm-t12": 0.65, "firm-t21": 0.45, "firm-t22": 1.1 } },
+            { label: "Plenty of input: nothing binds (s₁ = 20)", note: "Expect about q* = (9.84, 5.82) and profit ≈ 124.6.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9, "firm-w1": 2, "firm-w2": 3, "firm-fixed": 12, "firm-t11": 1, "firm-t12": 0.65, "firm-t21": 0.45, "firm-t22": 1.1 } },
             { label: "Scarce input 1 (s₁ = 10)", note: "Expect about q = (6.91, 4.75), profit ≈ 115.1, input 1 binding.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 10, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9, "firm-w1": 2, "firm-w2": 3, "firm-fixed": 12, "firm-t11": 1, "firm-t12": 0.65, "firm-t21": 0.45, "firm-t22": 1.1 } },
             { label: "Shadow price by experiment", note: "s₁ = 11: profit rises from about 115.1 to 119.6 (+4.5). A bit less than μ₁ ≈ 5.2, because the shadow price shrinks as the input gets less scarce.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 11, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9, "firm-w1": 2, "firm-w2": 3, "firm-fixed": 12, "firm-t11": 1, "firm-t12": 0.65, "firm-t21": 0.45, "firm-t22": 1.1 } }
           ],
@@ -1044,7 +1044,7 @@ window.MATRIXLAB_CONTENT = {
             { wrong: "Thinking every input has a positive shadow price.", right: "Slack inputs have μ = 0." }
           ],
           quiz: [
-            { q: "With default capacities, does any input constraint bind?", options: ["Yes, input 1", "Yes, input 2", "No"], answer: 2, explain: "Tq* ≈ (13.6, 10.8) is below (20, 21)." },
+            { q: "With capacities s = (20, 21), does any input constraint bind?", options: ["Yes, input 1", "Yes, input 2", "No"], answer: 2, explain: "Tq* ≈ (13.6, 10.8) is below (20, 21)." },
             { q: "If s₁ drops to 10, what happens?", options: ["Nothing", "The optimum moves onto the input-1 capacity line", "The firm stops producing"], answer: 1, explain: "13.6 > 10, so input 1 binds." },
             { q: "μ₁ ≈ 5.22 means…", options: ["Input 1 costs 5.22", "One more unit of input 1 adds about 5.22 profit", "Profit falls by 5.22"], answer: 1, explain: "Shadow price = marginal value of capacity." }
           ],
@@ -1098,7 +1098,7 @@ window.MATRIXLAB_CONTENT = {
           lab: [
             { label: "1 · Matrix", note: "Professor's A in Matrix Fundamentals.", screen: "matrix", set: { a11: 1, a12: 1, a22: 2 } },
             { label: "2 · Landscape", note: "Same A in Geometry Explorer.", screen: "geometry", preset: "prof" },
-            { label: "3 · Firm", note: "Default Business Simulator.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } }
+            { label: "3 · Firm", note: "Business Simulator with plenty of input (s₁ = 20).", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } }
           ],
           business: [
             { title: "If you're assigned Theme 1", body: "End with one slide: “why this matters” → the same A as a bowl, and B in a firm's profit." },
