@@ -72,7 +72,7 @@ window.MATRIXLAB_CONTENT = {
             { label: "Flip with a negative scalar", note: "Scale u by −1.5 and watch the arrow reverse.", screen: "matrix", set: { u1: 1, u2: 1, v1: -1, v2: 2, scale: -1.5 } }
           ],
           business: [
-            { title: "Production plans", body: "In Presentation 2, q = (q₁, q₂) is a vector of output quantities. Adding plans, comparing plans, and scaling plans are vector operations." },
+            { title: "Production plans", body: "In Theme 2, q = (q₁, q₂) is a vector of output quantities. Adding plans, comparing plans, and scaling plans are vector operations." },
             { title: "Portfolios", body: "A portfolio is a vector of weights. Combining two strategies 50/50 is ½u + ½v, a linear combination." }
           ],
           mistakes: [
@@ -110,7 +110,7 @@ window.MATRIXLAB_CONTENT = {
               "<p>Multiplication is associative and distributes over addition, but is <b>not commutative</b> in general: AM ≠ MA.</p>"
           },
           example: {
-            intro: "A = [[1, 1], [1, 2]] and the site's second matrix [[2, 0], [1, 2]]. The website labels it B; here we call it M so it isn't confused with the firm's demand matrix B in Presentation 2.",
+            intro: "A = [[1, 1], [1, 2]] and the site's second matrix [[2, 0], [1, 2]]. The website labels it B; here we call it M so it isn't confused with the firm's demand matrix B in Theme 2.",
             steps: [
               { title: "Top-left cell of A·M", body: "Row 1 of A = (1, 1). Column 1 of M = (2, 1). Multiply matching entries and add.", math: "1·2 + 1·1 = 3" },
               { title: "Top-right cell", body: "Row 1 of A with column 2 of M = (0, 2).", math: "1·0 + 1·2 = 2" },
@@ -135,7 +135,7 @@ window.MATRIXLAB_CONTENT = {
             { label: "Multiply by the inverse", note: "Set the second matrix to A⁻¹ = [[2,−1],[−1,1]]. The product should be I.", screen: "matrix", set: { a11: 1, a12: 1, a22: 2, b11: 2, b12: -1, b21: -1, b22: 1 } }
           ],
           business: [
-            { title: "Products → inputs → cost", body: "In Presentation 2, input use is z = Tq and input cost is wᵀz, so cost per unit of output is wᵀT, one matrix product. This is how a linear cost function is built." },
+            { title: "Products → inputs → cost", body: "In Theme 2, input use is z = Tq and input cost is wᵀz, so cost per unit of output is wᵀT, one matrix product. This is how a linear cost function is built." },
             { title: "Chained reports", body: "Converting regional sales into product lines, then product lines into margins, is two matrix multiplications that collapse into one." }
           ],
           mistakes: [
@@ -197,7 +197,7 @@ window.MATRIXLAB_CONTENT = {
             { label: "A matrix with no inverse", note: "A = [[1, 2], [2, 4]]: det = 0. Watch how the site reports it.", screen: "matrix", set: { a11: 1, a12: 2, a22: 4 } }
           ],
           business: [
-            { title: "Solving simultaneous equations", body: "Two first-order conditions in two unknowns, like the firm's optimal outputs in Presentation 2, are a 2×2 system. The optimum q* = ½B⁻¹(α − c) uses B's inverse." },
+            { title: "Solving simultaneous equations", body: "Two first-order conditions in two unknowns, like the firm's optimal outputs in Theme 2, are a 2×2 system. The optimum q* = ½B⁻¹(α − c) uses B's inverse." },
             { title: "Input-output analysis", body: "Leontief's economy-wide model computes how much each industry must produce to meet final demand using (I − A)⁻¹." }
           ],
           mistakes: [
@@ -368,11 +368,11 @@ window.MATRIXLAB_CONTENT = {
               body: "Running PCA on daily changes in interest rates typically finds three dominant eigenvectors that analysts read as level, slope, and curvature of the curve. Traders hedge those directions instead of dozens of individual rates."
             },
             {
-              title: "Presentation 3 connection",
+              title: "Theme 3 connection",
               body: "In q(x) = xᵀAx, the eigenvectors are the tilt of the contour ellipses. The bigger eigenvalue is the <b>steeper</b> direction, so its ellipse axis is the <b>shorter</b> one (semi-axis = 1/√λ on the level set q = 1)."
             },
             {
-              title: "Presentation 2 connection",
+              title: "Theme 2 connection",
               body: "The firm's profit is concave (a hill with one top) exactly when both eigenvalues of the demand matrix B are positive. Eigenvalues tell you whether “the best production plan” even exists."
             }
           ],
@@ -452,7 +452,7 @@ window.MATRIXLAB_CONTENT = {
           },
           formula: {
             simple: "<div class='g-math-block'>A = Q·Λ·Qᵀ = λ₁·u₁u₁ᵀ + λ₂·u₂u₂ᵀ</div><p><b>Q</b> = unit eigenvectors as columns · <b>Λ</b> (capital lambda) = eigenvalues on the diagonal · <b>Qᵀ</b> = Q flipped over its diagonal (its inverse).</p>",
-            rigorous: "<div class='g-math-block'>A = Aᵀ ∈ ℝⁿˣⁿ  ⇒  A = QΛQᵀ,  QᵀQ = I,  Λ = diag(λ₁,…,λₙ)</div><p>Quadratic forms diagonalize too: with y = Qᵀx, xᵀAx = Σ λᵢyᵢ². This is the bridge to Presentation 3 (principal axes).</p>",
+            rigorous: "<div class='g-math-block'>A = Aᵀ ∈ ℝⁿˣⁿ  ⇒  A = QΛQᵀ,  QᵀQ = I,  Λ = diag(λ₁,…,λₙ)</div><p>Quadratic forms diagonalize too: with y = Qᵀx, xᵀAx = Σ λᵢyᵢ². This is the bridge to Theme 3 (principal axes).</p>",
             conditions: [
               "This orthogonal version requires a <b>symmetric</b> matrix (A = Aᵀ). The professor's A qualifies.",
               "Non-symmetric matrices may be diagonalized as A = PDP⁻¹ (P not orthogonal), or not at all (a shear).",
@@ -466,7 +466,7 @@ window.MATRIXLAB_CONTENT = {
           ],
           business: [
             { title: "Principal component analysis", body: "Applying the spectral decomposition to a covariance matrix gives PCA: uncorrelated factors (eigenvectors) and how much variance each carries (eigenvalues)." },
-            { title: "Presentation 3 connection", body: "Rotating into eigen-coordinates turns q = x² + 2xy + 2y² into 2.618s² + 0.382t², with no cross term. That's why the level sets are tilted ellipses." }
+            { title: "Theme 3 connection", body: "Rotating into eigen-coordinates turns q = x² + 2xy + 2y² into 2.618s² + 0.382t², with no cross term. That's why the level sets are tilted ellipses." }
           ],
           mistakes: [
             { wrong: "Using unnormalized eigenvectors like (1, 1.618) in Q.", right: "Divide by the length so each column has length 1." },
@@ -531,7 +531,7 @@ window.MATRIXLAB_CONTENT = {
           ],
           business: [
             { title: "Monte Carlo with correlated assets", body: "If z holds independent standard shocks and Σ = LLᵀ is a target covariance matrix, then x = Lz has covariance Σ. That is how correlated price paths are simulated for risk models." },
-            { title: "A positive-definiteness test", body: "Software checks whether a covariance or Hessian matrix is positive definite by simply attempting Cholesky. In Presentation 2, that checks whether the profit function has a unique maximum." }
+            { title: "A positive-definiteness test", body: "Software checks whether a covariance or Hessian matrix is positive definite by simply attempting Cholesky. In Theme 2, that checks whether the profit function has a unique maximum." }
           ],
           mistakes: [
             { wrong: "Running Cholesky on any symmetric matrix.", right: "It must be positive definite." },
@@ -601,7 +601,7 @@ window.MATRIXLAB_CONTENT = {
           ],
           business: [
             { title: "Portfolio variance", body: "Var(w₁R₁ + w₂R₂) = σ₁²w₁² + 2σ₁₂w₁w₂ + σ₂²w₂² = wᵀΣw. A quadratic form with the covariance matrix Σ." },
-            { title: "Presentation 2 connection", body: "Profit contains −qᵀBq. Its cross term 2γq₁q₂ comes from substitute products pushing each other's prices down." }
+            { title: "Theme 2 connection", body: "Profit contains −qᵀBq. Its cross term 2γq₁q₂ comes from substitute products pushing each other's prices down." }
           ],
           mistakes: [
             { wrong: "Putting the full cross coefficient off-diagonal: 2xy → [[1, 2], [2, 2]].", right: "Use half: [[1, 1], [1, 2]]." },
@@ -630,7 +630,7 @@ window.MATRIXLAB_CONTENT = {
             simple:
               "<p>A <b>level set</b> is every point with the same height, like the contour lines on a hiking map. For q(x, y) = k you collect all (x, y) where the formula gives exactly k.</p>" +
               "<p>For the professor's A, every positive level is an <b>ellipse</b>, tilted along the eigenvector directions. The bigger eigenvalue (2.618) is the <b>steep</b> direction: height grows fast, so you reach level k after a <b>short</b> walk. The small eigenvalue (0.382) is the gentle direction, so that axis is <b>long</b>.</p>" +
-              "<p class='g-analogy'><b>Business analogy:</b> in Presentation 2, the iso-profit curves (all output mixes earning the same profit) are exactly this kind of contour.</p>",
+              "<p class='g-analogy'><b>Business analogy:</b> in Theme 2, the iso-profit curves (all output mixes earning the same profit) are exactly this kind of contour.</p>",
             rigorous:
               "<p>The level set of q at k is L_k = {x : xᵀAx = k}. In eigen-coordinates y = Qᵀx, it becomes λ₁y₁² + λ₂y₂² = k. For λ₁, λ₂ &gt; 0 and k &gt; 0 this is an ellipse with semi-axes √(k/λ₁) along u₁ and √(k/λ₂) along u₂ (the principal axes theorem).</p>" +
               "<p>Since q(tx) = t²q(x), L_k = √k · L₁: contours are scaled copies, and equally spaced heights give contours that get closer together as you go up.</p>"
@@ -725,7 +725,7 @@ window.MATRIXLAB_CONTENT = {
           ],
           business: [
             { title: "Why shape decides optimization", body: "A hill has one top: a unique best decision. A saddle has none: whatever you choose, moving in some direction improves things. A valley/ridge has a tie: many equally good decisions." },
-            { title: "Presentation 2 connection", body: "Profit's quadratic part is −qᵀBq. If B is a bowl, −B is a hill and the firm has a unique best output mix. If substitution γ gets too strong, B becomes a saddle and the model breaks." }
+            { title: "Theme 2 connection", body: "Profit's quadratic part is −qᵀBq. If B is a bowl, −B is a hill and the firm has a unique best output mix. If substitution γ gets too strong, B becomes a saddle and the model breaks." }
           ],
           mistakes: [
             { wrong: "“Positive diagonal entries ⇒ bowl.”", right: "Check the determinant too; [[1, 2], [2, 1]] is a saddle." },
@@ -943,7 +943,7 @@ window.MATRIXLAB_CONTENT = {
           intuition: {
             simple:
               "<p>Revenue is price × quantity. But price itself <b>depends on quantity</b> (selling more lowers it). So revenue = (something with q) × q, and that creates <b>q² terms</b>.</p>" +
-              "<p>Product 1's price also depends on q₂, so revenue gets a <b>q₁·q₂ cross term</b>. Squared terms plus a cross term = a quadratic form, the topic of Presentation 3.</p>" +
+              "<p>Product 1's price also depends on q₂, so revenue gets a <b>q₁·q₂ cross term</b>. Squared terms plus a cross term = a quadratic form, the topic of Theme 3.</p>" +
               "<p>Cost is linear, so it adds no squared terms. All the curvature of profit comes from demand.</p>",
             rigorous:
               "<p>π(q) = P(q)ᵀq − C(q) = (α − Bq)ᵀq − F − cᵀq = (α − c)ᵀq − qᵀBq − F, using symmetry of B (qᵀBᵀq = qᵀBq).</p>" +
@@ -1062,35 +1062,35 @@ window.MATRIXLAB_CONTENT = {
       id: "all",
       presentation: null,
       title: "Bring It Together",
-      tagline: "One matrix idea, three presentations",
+      tagline: "One matrix idea, three themes",
       concepts: [
         {
           id: "story",
           title: "The one-matrix story",
           status: "ready",
           minutes: 8,
-          summary: "How Presentations 1, 2 and 3 are the same idea seen three ways, and how to say it in class.",
+          summary: "How Themes 1, 2 and 3 are the same idea seen three ways, and how to say it in class.",
           intuition: {
             simple:
-              "<p><b>Presentation 1</b> asks: what does a symmetric matrix do? It stretches two perpendicular directions (eigenvectors) by two factors (eigenvalues), and it can be rebuilt from them (spectral) or from a triangular square root (Cholesky).</p>" +
-              "<p><b>Presentation 3</b> turns the matrix into a landscape, q = xᵀAx. The eigenvectors become the ellipse axes; the eigenvalue signs decide bowl, hill or saddle.</p>" +
-              "<p><b>Presentation 2</b> shows a firm's profit is exactly such a landscape: π = (α − c)ᵀq − qᵀBq − F. B being positive definite (a Presentation 1 / 3 fact) is what makes “the best production plan” exist.</p>",
+              "<p><b>Theme 1</b> asks: what does a symmetric matrix do? It stretches two perpendicular directions (eigenvectors) by two factors (eigenvalues), and it can be rebuilt from them (spectral) or from a triangular square root (Cholesky).</p>" +
+              "<p><b>Theme 3</b> turns the matrix into a landscape, q = xᵀAx. The eigenvectors become the ellipse axes; the eigenvalue signs decide bowl, hill or saddle.</p>" +
+              "<p><b>Theme 2</b> shows a firm's profit is exactly such a landscape: π = (α − c)ᵀq − qᵀBq − F. B being positive definite (a Theme 1 / 3 fact) is what makes “the best production plan” exist.</p>",
             rigorous:
               "<p>The common object is a symmetric matrix and its quadratic form. Spectral decomposition diagonalizes the form (principal axes), definiteness classifies it, Cholesky certifies positive definiteness, and the inverse solves the first-order conditions q* = ½B⁻¹(α − c). Constraints add KKT multipliers with shadow-price interpretations.</p>"
           },
           example: {
             intro: "A three-sentence spine you can say in any of the three presentations.",
             steps: [
-              { title: "Sentence 1 (Presentation 1)", body: "“A symmetric matrix is completely described by its eigenvectors and eigenvalues: for A = [[1, 1], [1, 2]], it stretches by 2.618 and 0.382 along two perpendicular directions.”", math: "A = QΛQᵀ = LLᵀ" },
-              { title: "Sentence 2 (Presentation 3)", body: "“As a quadratic form, those eigenvalues set the curvature and the eigenvectors set the tilt of the level sets; both positive means a bowl with elliptical contours.”", math: "q = 2.618s² + 0.382t²" },
-              { title: "Sentence 3 (Presentation 2)", body: "“A firm with linear demand and linear cost has profit equal to a linear term minus a quadratic form, so its best plan exists exactly when the demand matrix is positive definite.”", math: "π = (α − c)ᵀq − qᵀBq − F,   q* = ½B⁻¹(α − c)" }
+              { title: "Sentence 1 (Theme 1)", body: "“A symmetric matrix is completely described by its eigenvectors and eigenvalues: for A = [[1, 1], [1, 2]], it stretches by 2.618 and 0.382 along two perpendicular directions.”", math: "A = QΛQᵀ = LLᵀ" },
+              { title: "Sentence 2 (Theme 3)", body: "“As a quadratic form, those eigenvalues set the curvature and the eigenvectors set the tilt of the level sets; both positive means a bowl with elliptical contours.”", math: "q = 2.618s² + 0.382t²" },
+              { title: "Sentence 3 (Theme 2)", body: "“A firm with linear demand and linear cost has profit equal to a linear term minus a quadratic form, so its best plan exists exactly when the demand matrix is positive definite.”", math: "π = (α − c)ᵀq − qᵀBq − F,   q* = ½B⁻¹(α − c)" }
             ]
           },
           formula: {
             simple: "<div class='g-math-block'>matrix (P1)  →  landscape q = xᵀAx (P3)  →  profit π = linear − qᵀBq (P2)</div>",
             rigorous: "<div class='g-math-block'>A = Aᵀ:  eigen-decomposition ⇒ principal axes ⇒ definiteness ⇒ existence/uniqueness of the optimum</div>",
             conditions: [
-              "Keep the professor's exact matrix for Presentations 1 and 3.",
+              "Keep the professor's exact matrix for Themes 1 and 3.",
               "Say clearly that the firm's numbers are teaching assumptions.",
               "Be ready to explain the linear-cost point: interaction through capacity, not marginal cost."
             ]
@@ -1101,9 +1101,9 @@ window.MATRIXLAB_CONTENT = {
             { label: "3 · Firm", note: "Default Business Simulator.", screen: "business", set: { "firm-a1": 22, "firm-a2": 20, "firm-gamma": 0.25, "firm-cap1": 20, "firm-cap2": 21, "firm-b1": 0.8, "firm-b2": 0.9 } }
           ],
           business: [
-            { title: "If you get Presentation 1", body: "End with one slide: “why this matters” → the same A as a bowl, and B in a firm's profit." },
-            { title: "If you get Presentation 2", body: "Spend 30 seconds on definiteness: it's the reason your optimum exists." },
-            { title: "If you get Presentation 3", body: "Open with the professor's A from Presentation 1 so the class sees continuity." }
+            { title: "If you're assigned Theme 1", body: "End with one slide: “why this matters” → the same A as a bowl, and B in a firm's profit." },
+            { title: "If you're assigned Theme 2", body: "Spend 30 seconds on definiteness: it's the reason your optimum exists." },
+            { title: "If you're assigned Theme 3", body: "Open with the professor's A from Theme 1 so the class sees continuity." }
           ],
           quiz: [
             { q: "What guarantees the firm's profit has a unique maximum?", options: ["B positive definite", "α > c only", "T invertible"], answer: 0, explain: "Then −qᵀBq is a hill." },

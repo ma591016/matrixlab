@@ -1,0 +1,92 @@
+/* =====================================================================
+   cases.css — styles for the Business Case Lab (tab 06) only.
+   Every class starts with "cl-", and everything is scoped to
+   #screen-cases, so nothing here can change tabs 01–05.
+   Colors mix with "currentColor", so the lab follows the site's theme.
+   ===================================================================== */
+
+#screen-cases {
+  --cl-teal: #14b8a6;
+  --cl-orange: #f97316;
+  --cl-violet: #8b5cf6;
+  --cl-line: color-mix(in srgb, currentColor 16%, transparent);
+  --cl-tint: color-mix(in srgb, currentColor 5%, transparent);
+}
+
+/* tags: FACT / ASSUMPTION / MODEL */
+#screen-cases .cl-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 2px 6px; border-radius: 5px; vertical-align: middle; white-space: nowrap; }
+#screen-cases .cl-fact { background: color-mix(in srgb, #22c55e 22%, transparent); color: color-mix(in srgb, #22c55e 75%, currentColor); }
+#screen-cases .cl-assumption { background: color-mix(in srgb, #f59e0b 22%, transparent); color: color-mix(in srgb, #f59e0b 80%, currentColor); }
+#screen-cases .cl-model { background: color-mix(in srgb, #3b82f6 22%, transparent); color: color-mix(in srgb, #3b82f6 80%, currentColor); }
+
+/* overview */
+#screen-cases .cl-intro { margin-bottom: 16px; line-height: 1.6; }
+#screen-cases .cl-intro h3 { margin-top: 0; }
+#screen-cases .cl-legend { font-size: 14px; line-height: 1.9; margin-bottom: 0; }
+#screen-cases .cl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+#screen-cases .cl-card { text-align: left; font: inherit; color: inherit; cursor: pointer; display: grid; gap: 6px; align-content: start; border: 1px solid var(--cl-line); transition: transform .15s, border-color .15s; }
+#screen-cases .cl-card:hover { transform: translateY(-2px); border-color: var(--cl-teal); }
+#screen-cases .cl-card h3 { margin: 0; font-size: 22px; }
+#screen-cases .cl-card p { margin: 0; line-height: 1.45; }
+#screen-cases .cl-industry { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cl-teal); }
+#screen-cases .cl-go { font-size: 13px; opacity: .75; margin-top: 4px; }
+
+/* case header */
+#screen-cases .cl-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin: 4px 0 14px; }
+#screen-cases .cl-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+#screen-cases .cl-tabs button, #screen-cases .cl-seg button { font: inherit; font-size: 13px; color: inherit; background: transparent; border: 1px solid var(--cl-line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+#screen-cases .cl-tabs button.on, #screen-cases .cl-seg button.on { background: var(--cl-teal); border-color: var(--cl-teal); color: #fff; font-weight: 600; }
+#screen-cases .cl-head h2 { margin: 6px 0; font-size: clamp(22px, 3vw, 30px); }
+#screen-cases .cl-data { margin: 14px 0 16px; }
+#screen-cases .cl-data summary { cursor: pointer; }
+#screen-cases .cl-table-wrap { overflow-x: auto; margin-top: 10px; }
+#screen-cases .cl-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+#screen-cases .cl-table td { padding: 8px; border-bottom: 1px solid var(--cl-line); vertical-align: top; }
+#screen-cases .cl-table a { color: inherit; text-decoration-color: var(--cl-teal); text-underline-offset: 3px; }
+#screen-cases .cl-notes { margin: 12px 0 0; padding-left: 0; list-style: none; display: grid; gap: 6px; font-size: 14px; line-height: 1.5; }
+
+/* lab: controls + picture */
+#screen-cases .cl-lab { display: grid; grid-template-columns: minmax(250px, 0.9fr) minmax(0, 1.6fr); gap: 16px; align-items: start; margin-bottom: 16px; }
+#screen-cases .cl-controls h3 { margin: 0 0 10px; }
+#screen-cases .cl-controls h3 + .cl-slider, #screen-cases .cl-scens + h3 { margin-top: 18px; }
+#screen-cases .cl-scens { display: grid; gap: 6px; }
+#screen-cases .cl-scen { text-align: left; font: inherit; color: inherit; background: transparent; border: 1px solid var(--cl-line); border-radius: 10px; padding: 8px 10px; cursor: pointer; display: grid; gap: 2px; }
+#screen-cases .cl-scen small { opacity: .7; line-height: 1.35; }
+#screen-cases .cl-scen.on { border-color: var(--cl-violet); background: color-mix(in srgb, var(--cl-violet) 14%, transparent); }
+#screen-cases .cl-slider { display: grid; gap: 4px; margin-bottom: 12px; font-size: 14px; }
+#screen-cases .cl-slider span { display: flex; justify-content: space-between; gap: 8px; }
+#screen-cases .cl-slider output { font-weight: 700; font-family: ui-monospace, Menlo, Consolas, monospace; white-space: nowrap; }
+#screen-cases .cl-slider input { width: 100%; accent-color: #f59e0b; }
+#screen-cases .cl-slider small { line-height: 1.35; }
+#screen-cases .cl-vtop { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+#screen-cases .cl-seg { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+#screen-cases .cl-chal { font: inherit; font-size: 13px; font-weight: 600; color: inherit; background: color-mix(in srgb, #ec4899 14%, transparent); border: 1px solid #ec4899; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+#screen-cases .cl-chal.on { background: #ec4899; color: #fff; }
+#screen-cases .cl-canvas { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--cl-line); background: var(--cl-tint); touch-action: none; cursor: crosshair; }
+#screen-cases .cl-hint { min-height: 1.4em; margin-top: 8px; font-size: 14px; line-height: 1.5; }
+#screen-cases .cl-legendrow { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; opacity: .85; margin-top: 6px; }
+#screen-cases .cl-legendrow i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+#screen-cases .cl-legendrow i.dash { width: 16px; height: 0; border-radius: 0; border-top: 2px dashed var(--cl-violet); }
+#screen-cases .cl-alert, #screen-cases .cl-note { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 14px; line-height: 1.5; }
+#screen-cases .cl-alert { background: color-mix(in srgb, #e11d48 14%, transparent); border-left: 3px solid #e11d48; }
+#screen-cases .cl-note { background: color-mix(in srgb, #f59e0b 12%, transparent); border-left: 3px solid #f59e0b; }
+
+/* KPIs */
+#screen-cases .cl-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+#screen-cases .cl-kpi { display: grid; gap: 4px; align-content: start; }
+#screen-cases .cl-kpi strong { font-size: 21px; }
+#screen-cases .cl-kpi small { opacity: .75; line-height: 1.35; }
+
+/* theme lens */
+#screen-cases .cl-lens { margin-bottom: 16px; }
+#screen-cases .cl-lens-top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+#screen-cases .cl-lens-top h3 { margin: 0; }
+#screen-cases .cl-step { border: 1px solid var(--cl-line); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+#screen-cases .cl-step h4 { margin: 0 0 4px; }
+#screen-cases .cl-step p { margin: 0 0 8px; line-height: 1.55; }
+#screen-cases .cl-math { margin: 0; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--cl-violet); background: var(--cl-tint); white-space: pre-wrap; overflow-x: auto; }
+#screen-cases .cl-lessons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+#screen-cases .cl-list { margin: 0 0 16px; padding-left: 18px; display: grid; gap: 8px; line-height: 1.6; }
+
+@media (max-width: 900px) { #screen-cases .cl-lab { grid-template-columns: 1fr; } }
+#screen-cases .cl-kpi strong em { display: block; font-style: normal; font-size: 12px; font-weight: 500; opacity: .75; margin-top: 2px; }

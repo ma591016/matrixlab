@@ -50,8 +50,8 @@
     try { localStorage.setItem("matrixlab-depth", state.depth); } catch (e) { /* ignore */ }
   }
 
-  // "PRESENTATION 01" for numbered modules, "ALL PRESENTATIONS" for the capstone (presentation: null).
-  function presLabel(m) { return m.presentation ? "PRESENTATION 0" + m.presentation : "ALL PRESENTATIONS"; }
+  // "THEME 01" for numbered modules, "ALL THEMES" for the capstone (presentation: null).
+  function presLabel(m) { return m.presentation ? "THEME 0" + m.presentation : "ALL THEMES"; }
 
   function findModule(id) { return CONTENT.modules.filter(function (m) { return m.id === id; })[0]; }
   function findConcept(mod, id) { return mod.concepts.filter(function (c) { return c.id === id; })[0]; }
@@ -215,7 +215,7 @@
       var cards = c.business.map(function (b) {
         return '<div class="g-card"><h4>' + b.title + "</h4><p>" + b.body + "</p></div>";
       }).join("");
-      html += layer(5, "Why it matters", "Business, finance and the other presentations", '<div class="g-card-grid">' + cards + "</div>");
+      html += layer(5, "Why it matters", "Business, finance and the other themes", '<div class="g-card-grid">' + cards + "</div>");
     }
 
     // Common mistakes
@@ -521,6 +521,14 @@
         .observe(guide, { attributes: true, attributeFilter: ["class"] });
     }
   }
+
+  // Lets other screens (Real-World Cases) open a lesson: MatrixLabGuide.open("p1", "eigen")
+  window.MatrixLabGuide = {
+    open: function (moduleId, conceptId) {
+      state.view = "concept"; state.moduleId = moduleId; state.conceptId = conceptId;
+      showGuide(); render(); scrollTopNow();
+    }
+  };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
