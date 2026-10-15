@@ -1,5 +1,5 @@
 /* =====================================================================
-   lab.css (v2.1) — styles for the new pieces in tabs 01–03 only:
+   lab.css (v2.2) — styles for the new pieces in tabs 01–03 only:
    the graph view tabs and step buttons (tab 01) and the
    "what we have / how it is derived" panels (tabs 02 and 03).
    New class names only, so nothing existing changes.
@@ -39,3 +39,17 @@
 .dv-math { white-space: pre; overflow-x: auto; }
 .dv-grid { grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); }
 @media (max-width: 700px) { .dv-grid { grid-template-columns: 1fr; } }
+
+/* v2.2: grouped shape presets and the extended tab 02 panel */
+.shape-gallery { display: grid; gap: 8px; margin: 4px 0 12px; }
+.preset-group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.preset-group .preset-buttons { margin: 0; }
+.preset-label { min-width: 15em; font-size: 13px; font-weight: 600; opacity: .8; }
+.dv-head td { padding-top: 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #b5a3ff; border-bottom-color: color-mix(in srgb, #b5a3ff 45%, transparent); }
+.dv-grid .dv-wide { grid-column: 1 / -1; }
+.dv-why { margin: 4px 0 0; padding-left: 20px; line-height: 1.6; }
+.dv-why li { margin: 6px 0; }
+.dv-cat thead td { font-size: 13px; font-weight: 700; opacity: .7; }
+.dv-cat tr.dv-on td { background: color-mix(in srgb, #14b8a6 18%, transparent); }
+.dv-cat .dv-sym { color: inherit; }
+@media (max-width: 700px) { .preset-label { min-width: 100%; } .dv-cat { font-size: 12px; } }

@@ -208,10 +208,10 @@ function wireViews() {
   });
 }
 
-const presets={prof:[1,1,2],circle:[1,0,1],saddle:[1,2,1],negative:[-1,0,-2],flat:[1,0,0]};
+const presets={prof:[1,1,2],circle:[1,0,1],stretched:[2,0,0.5],negative:[-1,0,-2],flipped:[-1,-1,-2],saddle:[1,2,1],plainsaddle:[1,0,-1],flat:[1,0,0],tiltedtrough:[1,1,1],ridge:[-1,0,0],plane:[0,0,0]};
 let camera={angle:.8,elevation:.7,drag:false,lastX:0,lastY:0};
 function setMatrix(a,b,d){$('a11').value=a;$('a12').value=b;$('a22').value=d;[$('g-a'),$('g-b'),$('g-d')].forEach((el,i)=>{const v=[a,b,d][i];el.min=Math.min(-3,v);el.max=Math.max(3,v);el.value=v;});renderEverything();}
-function renderGeometry(){const m=A(),e=getEigen(m),a=m[0][0],b=m[0][1],d=m[1][1];for(const [id,v] of [['g-a',a],['g-b',b],['g-d',d]]){$(id).min=Math.min(-3,v);$(id).max=Math.max(3,v);$(id).value=v;$(id+'-out').textContent=fmt(v,2);}const middle=b>=0?`+ ${fmt(2*b)}xy`:`− ${fmt(-2*b)}xy`;const tail=d>=0?`+ ${fmt(d)}y²`:`− ${fmt(-d)}y²`;$('quadratic-formula').textContent=`q(x,y) = ${fmt(a)}x² ${middle} ${tail} = [x y] A [x y]ᵀ`;$('geometry-status').innerHTML=`<span>det(A) = ${fmt(e.det)}</span><span>${classify(e)}</span>`;document.querySelectorAll('[data-preset]').forEach(btn=>{let vals=presets[btn.dataset.preset];btn.classList.toggle('active',vals.every((z,i)=>near(z,[a,b,d][i])));});const shape=classify(e);let msg='';if(e.lambda[1]>EPS)msg='All quadratic values are positive except at the origin. Positive-value contours form ellipses.';else if(e.lambda[0]<-EPS)msg='All quadratic values are negative except at the origin. Negative-value contours form ellipses around a hill.';else if(e.lambda[1]<-EPS&&e.lambda[0]>EPS)msg='The surface curves upward in one direction and downward in another: a saddle. Nonzero contours are hyperbolas.';else msg='At least one eigenvalue is zero. The surface has a flat direction and the contours are degenerate.';
+function renderGeometry(){const m=A(),e=getEigen(m),a=m[0][0],b=m[0][1],d=m[1][1];for(const [id,v] of [['g-a',a],['g-b',b],['g-d',d]]){$(id).min=Math.min(-3,v);$(id).max=Math.max(3,v);$(id).value=v;$(id+'-out').textContent=fmt(v,2);}const middle=b>=0?`+ ${fmt(2*b)}xy`:`− ${fmt(-2*b)}xy`;const tail=d>=0?`+ ${fmt(d)}y²`:`− ${fmt(-d)}y²`;$('quadratic-formula').textContent=`q(x,y) = ${fmt(a)}x² ${middle} ${tail} = [x y] A [x y]ᵀ`;$('geometry-status').innerHTML=`<span>det(A) = ${fmt(e.det)}</span><span>${classify(e)}</span>`;document.querySelectorAll('[data-preset]').forEach(btn=>{let vals=presets[btn.dataset.preset];btn.classList.toggle('active',vals.every((z,i)=>near(z,[a,b,d][i])));});const shape=classify(e);let msg='';if(e.lambda[1]>EPS)msg='All quadratic values are positive except at the origin. Positive-value contours form ellipses.';else if(e.lambda[0]<-EPS)msg='All quadratic values are negative except at the origin. Negative-value contours form ellipses around a hill.';else if(e.lambda[1]<-EPS&&e.lambda[0]>EPS)msg='The surface curves upward in one direction and downward in another: a saddle. Nonzero contours are hyperbolas.';else if(Math.abs(e.lambda[0])<EPS&&Math.abs(e.lambda[1])<EPS)msg='Every entry is zero, so q = 0 everywhere: a flat plane with no curvature and no contour lines.';else if(e.lambda[0]>EPS)msg='One eigenvalue is zero: the surface is a trough (a valley). Along the flat direction the height never changes, so the contours are parallel straight lines.';else msg='One eigenvalue is zero and the other is negative: a ridge (an upside-down trough). The contours are parallel straight lines.';
  $('geometry-explanation').innerHTML=`<div class="explainer-item"><h3>What shape?</h3><p>${msg}</p></div><div class="explainer-item"><h3>Eigenvalues = curvature</h3><p>λ₁ = ${fmt(e.lambda[0])} and λ₂ = ${fmt(e.lambda[1])}. Larger absolute values mean steeper curvature along the corresponding eigenvector axis.</p></div><div class="explainer-item"><h3>Eigenvectors = directions</h3><p>v₁ = ${vector(e.vecs[0])}, v₂ = ${vector(e.vecs[1])}. These perpendicular directions are the principal axes of the shape.</p></div>`;
  drawContours(m,e);drawSurface(m);
  geometryDerivation(m,e);   // v2.1
@@ -246,31 +246,123 @@ const card = (title, body, math) => `<div class="dv-card"><h3>${title}</h3><p>${
 const sym = rows => `<table class="dv-table"><tbody>${rows.map(([s, m, v]) => `<tr><td class="dv-sym">${s}</td><td>${m}</td><td class="dv-val">${v}</td></tr>`).join('')}</tbody></table>`;
 
 function geometryDerivation(m, e) {
-  const a = m[0][0], b = m[0][1], d = m[1][1];
+  // v2.2: one reference table with every value used in Theme 3, plus plain-words and catalog cards
+  const a = m[0][0], b = m[0][1], d = m[1][1], [l1, l2] = e.lambda, Z = x => Math.abs(x) < EPS;
   const sgn = x => x < 0 ? `− ${fmt(-x)}` : `+ ${fmt(x)}`;
+  const deg = x => `${fmt(x * 180 / Math.PI, 1)}°`;
+  const kind = l2 > EPS ? 'pd' : l1 < -EPS ? 'nd' : (l1 > EPS && l2 < -EPS) ? 'ind' : (Z(l1) && Z(l2)) ? 'zero' : l1 > EPS ? 'psd' : 'nsd';
+  const sameDir = Z(b) && Z(a - d);
   let rule;
   if (e.det > EPS && a > EPS) rule = `det > 0 and a > 0  →  positive definite: a bowl, contours are ellipses`;
   else if (e.det > EPS && a < -EPS) rule = `det > 0 and a < 0  →  negative definite: a hill, contours are ellipses`;
   else if (e.det < -EPS) rule = `det < 0  →  indefinite: a saddle, contours are hyperbolas`;
-  else rule = `det = 0  →  semidefinite: a valley or ridge with a flat direction`;
-  const axes = e.lambda[1] > EPS ? `On the level q = 1 the ellipse's half-axes are 1/√λ: ${fmt(1 / Math.sqrt(e.lambda[0]))} along v₁ and ${fmt(1 / Math.sqrt(e.lambda[1]))} along v₂ (bigger λ = steeper = shorter axis).` : 'With a zero or negative eigenvalue the contours are not closed ellipses.';
+  else if (kind === 'zero') rule = `every entry is 0  →  q = 0 everywhere: a flat plane`;
+  else if (kind === 'psd') rule = `det = 0 and a + d > 0  →  positive semidefinite: a trough, contours are parallel lines`;
+  else rule = `det = 0 and a + d < 0  →  negative semidefinite: a ridge, contours are parallel lines`;
+  // half-axes / crossing distances
+  let axesTxt, axesVal, ratioVal;
+  if (kind === 'pd' || kind === 'nd') {
+    const k = kind === 'pd' ? 1 : -1, h1 = 1 / Math.sqrt(Math.abs(l1)), h2 = 1 / Math.sqrt(Math.abs(l2)), big = Math.max(Math.abs(l1), Math.abs(l2)), small = Math.min(Math.abs(l1), Math.abs(l2));
+    axesTxt = `half-axes of the ellipse q = ${k}: 1/√|λ| (bigger |λ| = steeper = shorter axis)`;
+    axesVal = `${fmt(h1)} along v₁, ${fmt(h2)} along v₂`;
+    ratioVal = `${fmt(Math.sqrt(big / small))} (1 = circle)`;
+  } else if (kind === 'ind') {
+    axesTxt = 'where the hyperbolas cross the eigenvector lines: q = 1 crosses v₁, q = −1 crosses v₂';
+    axesVal = `${fmt(1 / Math.sqrt(l1))} along v₁, ${fmt(1 / Math.sqrt(-l2))} along v₂`;
+    ratioVal = 'not an ellipse (hyperbolas)';
+  } else if (kind === 'zero') { axesTxt = 'no contour lines: the surface is flat'; axesVal = '—'; ratioVal = '—'; }
+  else {
+    const ln = kind === 'psd' ? l1 : l2;
+    axesTxt = `distance of the lines q = ${kind === 'psd' ? 1 : -1} from the flat line: 1/√|λ|`;
+    axesVal = `${fmt(1 / Math.sqrt(Math.abs(ln)))} on each side`;
+    ratioVal = 'infinite (one direction is flat)';
+  }
+  // completing the square: the reason the det test works
+  let square;
+  const co = c => Z(c - 1) ? '' : Z(c + 1) ? '−' : `${fmt(c)}·`;            // leading coefficient
+  const inner = (u, r, v) => Z(r) ? u : `${u} ${r < 0 ? '−' : '+'} ${Z(Math.abs(r) - 1) ? '' : fmt(Math.abs(r))}${v}`;
+  const tail2 = (c, v) => Z(c) ? '' : ` ${c < 0 ? '−' : '+'} ${Z(Math.abs(c) - 1) ? '' : fmt(Math.abs(c)) + '·'}${v}²`;
+  const sq = (c, u, r, v, c2) => { const core = Z(r) ? `${u}²` : `(${inner(u, r, v)})²`; return `${co(c)}${core}${tail2(c2, v)}`; };
+  if (!Z(a)) square = sq(a, 'x', b / a, 'y', e.det / a);
+  else if (!Z(d)) square = sq(d, 'y', b / d, 'x', e.det / d);
+  else square = Z(b) ? '0' : `${fmt(2 * b)}xy (no squares to complete)`;
+  const tilt = sameDir ? 'none: every direction is an eigenvector' : Z(b) ? '0° (b = 0, so no tilt)' : `${deg(e.theta)} from the x-axis`;
+  const shapeTxt = classify(e);
+  const head = t => `<tr class="dv-head"><td colspan="3">${t}</td></tr>`;
+  const row = ([s, mm, v]) => `<tr><td class="dv-sym">${s}</td><td>${mm}</td><td class="dv-val">${v}</td></tr>`;
+  const table = `<table class="dv-table"><tbody>` +
+    head('The matrix (what you control)') + [
+      ['A', 'the symmetric matrix set by the sliders', `[[${fmt(a)}, ${fmt(b)}], [${fmt(b)}, ${fmt(d)}]]`],
+      ['a', 'top-left entry: how steep the landscape is along x (q(1, 0) = a)', fmt(a)],
+      ['b', 'top-right = bottom-left: the cross effect between x and y; it tilts the shape', fmt(b)],
+      ['d', 'bottom-right entry: how steep the landscape is along y (q(0, 1) = d)', fmt(d)]].map(row).join('') +
+    head('The landscape') + [
+      ['(x, y)', 'any point on the map: two choices, e.g. two quantities', 'the grid'],
+      ['q(x, y)', 'the height at that point: ax² + 2bxy + dy²', `${fmt(a)}x² ${sgn(2 * b)}xy ${sgn(d)}y²`],
+      ['2b', 'coefficient of the cross term xy (the two b’s add up)', fmt(2 * b)],
+      ['k', 'a chosen height; the level set is all points with q(x, y) = k', 'drawn: ±1, ±4, ±9, ±16'],
+      ['q(1, 1), q(1, −1)', 'two sample heights (diagonal directions)', `${fmt(quadratic(m, 1, 1))}, ${fmt(quadratic(m, 1, -1))}`]].map(row).join('') +
+    head('The shape numbers') + [
+      ['det(A)', 'ad − b² = λ₁ × λ₂. Its sign decides bowl/hill vs saddle', fmt(e.det)],
+      ['trace', 'a + d = λ₁ + λ₂. Its sign says up (bowl) or down (hill)', fmt(e.trace)],
+      ['λ₁', 'larger eigenvalue: curvature (steepness) along v₁', fmt(l1)],
+      ['λ₂', 'smaller eigenvalue: curvature along v₂', fmt(l2)],
+      ['signs of λ', '(+,+) bowl · (−,−) hill · (+,−) saddle · a 0 = flat direction', `(${l1 > EPS ? '+' : l1 < -EPS ? '−' : '0'}, ${l2 > EPS ? '+' : l2 < -EPS ? '−' : '0'})`],
+      ['shape', 'the verdict', shapeTxt]].map(row).join('') +
+    head('The geometry') + [
+      ['v₁', 'eigenvector for λ₁: one principal axis of the shape (a dashed purple line)', vector(e.vecs[0])],
+      ['v₂', 'eigenvector for λ₂: the other principal axis, perpendicular to v₁', vector(e.vecs[1])],
+      ['θ (tilt)', 'angle of v₁: how much the shape is turned', tilt],
+      ['1/√|λ|', axesTxt, axesVal],
+      ['axis ratio', 'long axis ÷ short axis = √(|λ|big ÷ |λ|small): how stretched', ratioVal],
+      ['(s, t)', 'distances measured along v₁ and v₂; there the cross term vanishes', `q = ${fmt(l1)}s² ${sgn(l2)}t²`],
+      ['A = QΛQᵀ', 'spectral decomposition: Q has v₁, v₂ as columns, Λ = diag(λ₁, λ₂)', `Λ = diag(${fmt(l1)}, ${fmt(l2)})`],
+      ['completed square', 'q rewritten as a sum of squares: the signs of its two coefficients give the shape', square]].map(row).join('') +
+    `</tbody></table>`;
+
+  // plain-words explanation of what is driving this shape
+  const why = [];
+  if (kind === 'pd') why.push(`<b>Both eigenvalues are positive</b>, so the landscape curves <b>up</b> in every direction: a bowl with one lowest point at (0, 0). Every height except the center is positive.`);
+  if (kind === 'nd') why.push(`<b>Both eigenvalues are negative</b>, so the landscape curves <b>down</b> in every direction: a hill with one highest point at (0, 0). This is what a profit function with a single best plan looks like.`);
+  if (kind === 'ind') why.push(`<b>One eigenvalue is positive and one is negative</b>: the landscape goes up along v₁ and down along v₂, a saddle. There is no lowest or highest point, and the level sets are hyperbolas.`);
+  if (kind === 'psd' || kind === 'nsd') why.push(`<b>One eigenvalue is exactly 0</b>: along that eigenvector the height never changes, so the landscape is a ${kind === 'psd' ? 'trough (valley)' : 'ridge'} and the contours are parallel lines. There is a whole line of ${kind === 'psd' ? 'lowest' : 'highest'} points, not one.`);
+  if (kind === 'zero') why.push('<b>All entries are 0</b>, so q is 0 everywhere: no curvature at all.');
+  if (kind === 'pd' || kind === 'nd' || kind === 'ind') {
+    if (sameDir) why.push(`Both eigenvalues are equal (${fmt(l1)}), so every direction is equally steep: the level sets are <b>circles</b>.`);
+    else why.push(`<b>How steep:</b> |λ₁| = ${fmt(Math.abs(l1))} along v₁ and |λ₂| = ${fmt(Math.abs(l2))} along v₂. Bigger |λ| = steeper = the contour lines are closer together in that direction.`);
+  }
+  if (Z(b)) why.push(`<b>Why no tilt:</b> b = 0, so x and y do not interact. The axes of the shape line up with x and y, and the eigenvalues are simply a = ${fmt(a)} and d = ${fmt(d)}.`);
+  else why.push(`<b>Why it is tilted:</b> b = ${fmt(b)} links x and y (the cross term ${fmt(2 * b)}xy). That turns the shape so its axes follow the eigenvectors, ${Z(a - d) ? 'at exactly 45°, because a = d' : `about ${deg(Math.abs(e.theta) > Math.PI / 2 ? e.theta - Math.sign(e.theta) * Math.PI : e.theta)} from the x-axis`}.`);
+  if ((kind === 'pd' || kind === 'nd') && !sameDir) {
+    const r = Math.min(Math.abs(l1), Math.abs(l2)) / Math.max(Math.abs(l1), Math.abs(l2));
+    why.push(`<b>How stretched:</b> the ellipses are ${fmt(Math.sqrt(1 / r), 2)}× longer than they are wide (axis ratio). ${r < 0.08 ? 'One eigenvalue is close to 0: the shape is <b>almost flat</b> in one direction and close to breaking.' : ''}`);
+  }
+  if (a * d > EPS) why.push(`<b>Breaking point:</b> keeping a = ${fmt(a)} and d = ${fmt(d)}, the shape changes type when b² reaches ad, i.e. at b = ±√(ad) = ±${fmt(Math.sqrt(a * d))}. Right now det = ${fmt(e.det)}${e.det > EPS ? `, so b has room to grow by ${fmt(Math.sqrt(a * d) - Math.abs(b))}` : e.det < -EPS ? ', so b is past that point' : ', exactly at the point'}.`);
+  if (a * d < -EPS) why.push('<b>a and d have opposite signs</b>, so det is negative whatever b is: it is a saddle for every b.');
+  if (kind !== 'zero') why.push(`<b>Why the det test works:</b> completing the square gives q = ${square}. The two coefficients are a and det/a, so their signs decide the shape.`);
+
+  const cat = [['pd', 'Positive definite', '(+, +)', 'det > 0, a > 0', 'ellipses', 'bowl, one lowest point', 'cost or risk with one minimum'],
+    ['nd', 'Negative definite', '(−, −)', 'det > 0, a < 0', 'ellipses', 'hill, one highest point', 'profit with one best plan'],
+    ['ind', 'Indefinite', '(+, −)', 'det < 0', 'hyperbolas', 'saddle', 'no best plan'],
+    ['psd', 'Positive semidefinite', '(+, 0)', 'det = 0, a + d > 0', 'parallel lines', 'trough (valley)', 'many equally low plans'],
+    ['nsd', 'Negative semidefinite', '(−, 0)', 'det = 0, a + d < 0', 'parallel lines', 'ridge (inverted trough)', 'many equally good plans'],
+    ['zero', 'Zero matrix', '(0, 0)', 'a = b = d = 0', 'none', 'flat plane', 'no curvature']];
+  const catalog = `<table class="dv-table dv-cat"><thead><tr><td>Type</td><td>λ signs</td><td>Quick test</td><td>Contours</td><td>3D shape</td><td>In business</td></tr></thead><tbody>` +
+    cat.map(c => `<tr class="${c[0] === kind ? 'dv-on' : ''}"><td><b>${c[1]}</b>${c[0] === kind ? ' ← now' : ''}</td><td class="dv-sym">${c[2]}</td><td>${c[3]}</td><td>${c[4]}</td><td>${c[5]}</td><td>${c[6]}</td></tr>`).join('') + `</tbody></table>`;
+
   $('geometry-derivation').innerHTML = '<div class="dv-grid">' +
-    card('1 · What we have',
-      sym([['A', 'the symmetric matrix you control with the sliders', `[[${fmt(a)}, ${fmt(b)}], [${fmt(b)}, ${fmt(d)}]]`],
-           ['a', 'top-left: how steep the landscape is along x', fmt(a)],
-           ['b', 'top-right = bottom-left: the cross effect between x and y', fmt(b)],
-           ['d', 'bottom-right: how steep it is along y', fmt(d)],
-           ['(x, y)', 'any point on the map (two choices, e.g. two quantities)', 'the grid'],
-           ['q(x, y)', 'the height of the landscape at that point', 'the colour / surface']])) +
+    `<div class="dv-card"><h3>1 · What we have: every value, live</h3><p>All the symbols used when presenting Theme 3, with their current values. Move a slider or click a preset and the whole table updates.</p>${table}</div>` +
     card('2 · How the formula comes from A',
       'Multiply A by the point, then take the dot product with the point again. The two b-terms add up, which is why the cross term has a 2.',
       `A·(x, y) = (${fmt(a)}x ${sgn(b)}y,  ${fmt(b)}x ${sgn(d)}y)\n(x, y)·A·(x, y) = ax² + bxy + bxy + dy²\n               = ax² + 2bxy + dy²\nWith your numbers:  q = ${fmt(a)}x² ${sgn(2 * b)}xy ${sgn(d)}y²\nExample: q(1, 1) = ${fmt(quadratic(m, 1, 1))}    q(1, −1) = ${fmt(quadratic(m, 1, -1))}`) +
     card('3 · What the lines on the map are',
-      'Each line is a <b>level set</b>: all points with the same height. The map draws q = 1, 4, 9 and 16 in teal, q = −1, −4, −9 and −16 in orange, and q = 0 in white. The dashed purple lines are the eigenvectors of A.',
-      `level set at height k:   ${fmt(a)}x² ${sgn(2 * b)}xy ${sgn(d)}y² = k`) +
+      'Each line is a <b>level set</b>: all points with the same height. The map draws q = 1, 4, 9 and 16 in teal, q = −1, −4, −9 and −16 in orange, and q = 0 in white. The dashed purple lines are the eigenvectors of A. Because 1, 4, 9, 16 are squares, each ring is the first one scaled by 1, 2, 3, 4.',
+      `level set at height k:   ${fmt(a)}x² ${sgn(2 * b)}xy ${sgn(d)}y² = k\nlevel k = level 1 scaled by √k`) +
     card('4 · The shape test',
-      'Two quick numbers decide the shape: the determinant and the top-left entry. The eigenvalues say the same thing. ' + axes,
-      `det = ad − b² = ${fmt(a)}×${fmt(d)} − ${fmt(b)}² = ${fmt(e.det)}\n${rule.replace('  →  ', '\n  →  ')}\neigenvalues λ = ${fmt(e.lambda[0])} and ${fmt(e.lambda[1])}`) +
+      'Two quick numbers decide the shape: the determinant and the top-left entry. The eigenvalues say the same thing.',
+      `det = ad − b² = ${fmt(a)}×${fmt(d)} − ${fmt(b)}² = ${fmt(e.det)}\n${rule.replace('  →  ', '\n  →  ')}\neigenvalues λ = ${fmt(l1)} and ${fmt(l2)}\ncompleted square: q = ${square}`) +
+    `<div class="dv-card dv-wide"><h3>5 · Why it looks like this, in plain words</h3><ul class="dv-why">${why.map(w => `<li>${w}</li>`).join('')}</ul></div>` +
+    `<div class="dv-card dv-wide"><h3>6 · Every shape a 2×2 quadratic form can make</h3><p>Only the <b>signs of the two eigenvalues</b> matter, so there are exactly six types. The presets above give at least one example of each; the current one is highlighted.</p>${catalog}</div>` +
     '</div>';
 }
 
